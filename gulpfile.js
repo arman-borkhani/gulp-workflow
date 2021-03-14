@@ -41,10 +41,15 @@ function optTask(){
   ];
   return gulp.src('app/*.html')
     .pipe(useref())
-    .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', postcss(plugins)))
     .pipe(gulp.dest('dist'))
+}
+
+function htmlMinifyTask() {
+  return gulp.src('dist/*.html')
+  .pipe(htmlmin({ collapseWhitespace: true }))
+  .pipe(gulp.dest('dist'))
 }
 
 function imgTask(){
@@ -65,4 +70,4 @@ function fontTask() {
 
 
 exports.start = gulp.parallel(browserSyncTask, sassTask , watchTask);
-exports.build = gulp.series(optTask, imgTask, fontTask);
+exports.build = gulp.series(optTask, htmlMinifyTask, imgTask, fontTask);
