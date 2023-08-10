@@ -1,1 +1,1 @@
-simple Gulp workflow for front-end development
+Simple Gulp workflow for front-end development
